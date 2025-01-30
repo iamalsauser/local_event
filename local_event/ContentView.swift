@@ -8,16 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selectedURL: URL?
+    @State private var showPicker = false
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            if let url = selectedURL {
+                Text("Selected File: \(url.lastPathComponent)")
+            } else {
+                Text("No File Selected")
+            }
+
+            Button("Pick a File") {
+                showPicker = true
+            }
+            .sheet(isPresented: $showPicker) {
+                DocumentPicker(selectedURL: $selectedURL)
+            }
         }
-        .padding()
     }
 }
+
 
 #Preview {
     ContentView()
