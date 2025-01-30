@@ -74,7 +74,7 @@ struct QRScannerView: UIViewControllerRepresentable {
                 DispatchQueue.main.async {
                     self.parent.scannedCode = scannedValue
                     self.parent.isScanning = false
-                    self.captureSession?.stopRunning() // Stop scanning after reading the QR
+                    self.captureSession?.stopRunning() 
                 }
             }
         }

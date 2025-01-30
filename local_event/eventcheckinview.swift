@@ -54,13 +54,10 @@ struct EventCheckInView: View {
                     .cornerRadius(8)
                 }
                 .padding()
-
-                // QR Scanner Sheet
                 .sheet(isPresented: $isScanning) {
                     QRScannerView(scannedCode: $scannedCode, isScanning: $isScanning)
                 }
 
-                // Show scanned result and fetch participant details
                 if let code = scannedCode {
                     Text("Scanned QR: \(code)")
                         .foregroundColor(.blue)
@@ -76,6 +73,11 @@ struct EventCheckInView: View {
                 }
             }
             .navigationTitle("Event Check-in")
+            .onChange(of: scannedCode) { newCode in
+                if let newCode = newCode {
+                    fetchParticipantDetails(from: newCode)
+                }
+            }
         }
     }
 
@@ -107,7 +109,7 @@ struct EventCheckInView: View {
             guard let data = data else { return }
             if let participant = try? JSONDecoder().decode(Participant.self, from: data) {
                 DispatchQueue.main.async {
-                    self.participants = [participant] // Show only the scanned participant
+                    self.participants = [participant]
                 }
             }
         }.resume()

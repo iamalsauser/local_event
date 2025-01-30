@@ -2,7 +2,7 @@
 //  ContentView.swift
 //  local_event
 //
-//  Created by admin17 on 30/01/25.
+//  Created by parthmac on 30/01/25.
 //
 
 import SwiftUI
